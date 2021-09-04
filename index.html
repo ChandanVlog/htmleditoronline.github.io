@@ -1,107 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link rel="stylesheet" href="https://codemirror.net//lib/codemirror.css"/>
+  <script src="https://codemirror.net//lib/codemirror.js"></script>
+  <script src="https://codemirror.net//mode/xml/xml.js"></script>
+  <link rel="stylesheet" href="https://codemirror.net//theme/monokai.css"/>
+  <script src="https://codemirror.net//addon/edit/closetag.js"></script>
+  <title>
+   Online HTML Editor
+  </title>
+  <style>
+   * {
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="Author" content="Chandan Shrestha">
-    <meta name="description" content="This is the responsive code editor of Html.">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online HTML Editor</title>
-    <style>
-        * {
             margin: 0px;
+
             padding: 0px;
+
             box-sizing: border-box;
+
         }
+
+
 
         body {
+
             background: #118490;
+
         }
+
+
 
         h1 {
+
             color: white;
+
             font-family: sans-serif;
+
         }
+
+
 
         .header {
-            margin-left: 32px;
-            display: flex;
-            align-items: center;
-            height: 70px;
+
+            margin-left: 2.35%;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    margin-right: 2.39%;
+    justify-content: space-between;
+
         }
+
+
 
         .display-flex {
+
             display: flex;
+
             align-items: center;
+
             width: 95%;
+
             height: 86vh;
+
             text-align: center;
+
         }
+
+
 
         textarea {
+
             padding: 20px;
+
             height: 100%;
+
             width: 50%;
+
             overflow: scroll;
+
             outline: none;
+
             font-size: 17px;
+
             background: #0c0c0c;
+
             color: white;
+
         }
+
         iframe {
+
             background: white;
+
             width: 50%;
+
             height: 100%;
+
             overflow: scroll;
+
         }
+
+        .CodeMirror{
+            font-family: system-ui;
+    font-size: 20px;
+    text-align: left;
+    height: 100%;
+    width: 50%;
+    padding: 10px;
+        }
+
+        #btn{
+            width: 110px;
+    height: 40px;
+    color: white;
+    background: #332944;
+    border: 1px solid black;
+    border-radius: 3px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+        }
+
+
 
         @media screen and (max-width:780px) {
+
             h1{
+
                 font-size: 165%;
+
             }
+
             .display-flex {
+
                 display: flex;
+
                 flex-direction: column;
+
                 height: 274vh;
+
             }
+
+
 
             textarea {
+
                 width: 100%;
+
                 height: 107%;
+
             }
+
+
 
             iframe {
+
                 width: 100%;
+
                 height: 107%;
+
             }
+            .CodeMirror{
+                width: 100%;
+            }
+
         }
-    </style>
-</head>
+  </style>
+ </head>
+ <body>
+  <div class="header">
+   <h1></h1>
+   <button id="btn">Run code</button>
+  </div>
+  <center>
+   <div class="display-flex">
+    <textarea id="editor" name="textarea" placeholder="Type the code here" spellcheck="False"></textarea>
+    <iframe id="result" placeholder="Result will be shown here"></iframe>
+   </div>
+  </center>
+ </body>
+ <script>
+ 
+    var editor = CodeMirror.fromTextArea(document.getElementById("editor"),
+    {
+        tabSize:4,
+        mode:"xml",
+        theme:"monokai",
+        autoCloseTags: true
+    });
 
-<body>
-    <div class="header">
-        <h1>Html Code Editor</h1>
-    </div>
-    <center>
-        <div class="display-flex">
-            <textarea name="textarea" oninput="showPreview()" id="textarea"
-                placeholder="Type the code here" spellcheck="False"></textarea>
-            <iframe id="result" placeholder="Result will be shown here"></iframe>
-        </div>
-    </center>
-</body>
-<script>
-    showPreview = () => {
-        var htmlCode = document.getElementById("textarea").value;
-        var result = document.getElementById("result").contentWindow.document;
+    
 
-        result.open();
+document.getElementById("btn").addEventListener("click", function(){
+    
+    var htmlCodeValue = editor.getValue();
 
-        result.write(htmlCode);
+    var ifrm = document.getElementById('result').contentWindow.document;
+    ifrm.open();
+    ifrm.write(htmlCodeValue);
+    ifrm.close();
+});
 
-        result.close();
+logo = "Html Code Editor"
+    i =0;
+    function typing(){
+        document.getElementsByTagName("h1")[0].innerHTML += logo.charAt(i);
+        i++;
+        setTimeout(typing, 50)
     }
-</script>
+typing();
 
+ </script>
 </html>
