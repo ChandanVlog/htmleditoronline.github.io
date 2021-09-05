@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <link rel="stylesheet" href="https://codemirror.net//lib/codemirror.css"/>
-  <script src="https://codemirror.net//lib/codemirror.js"></script>
-  <script src="https://codemirror.net//mode/xml/xml.js"></script>
-  <link rel="stylesheet" href="https://codemirror.net//theme/monokai.css"/>
-  <script src="https://codemirror.net//addon/edit/closetag.js"></script>
-  <title>
-   Online HTML Editor
-  </title>
-  <style>
-   * {
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link rel="stylesheet" href="https://codemirror.net//lib/codemirror.css" />
+    <script src="https://codemirror.net//lib/codemirror.js"></script>
+    <script src="https://codemirror.net//mode/xml/xml.js"></script>
+    <script src="https://codemirror.net//mode/css/css.js"></script>
+    <script src="https://codemirror.net//mode/javascript/javascript.js"></script>
+    <link rel="stylesheet" href="https://codemirror.net//theme/monokai.css" />
+    <script src="https://codemirror.net//addon/edit/closetag.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>
+        Online HTML Editor
+    </title>
+    <style>
+        * {
 
             margin: 0px;
 
@@ -46,11 +50,11 @@
         .header {
 
             margin-left: 2.35%;
-    display: flex;
-    align-items: center;
-    height: 70px;
-    margin-right: 2.39%;
-    justify-content: space-between;
+            display: flex;
+            align-items: center;
+            height: 70px;
+            margin-right: 2.39%;
+            justify-content: space-between;
 
         }
 
@@ -104,32 +108,38 @@
 
         }
 
-        .CodeMirror{
+        .CodeMirror {
             font-family: system-ui;
-    font-size: 20px;
-    text-align: left;
-    height: 100%;
-    width: 50%;
-    padding: 10px;
+            font-size: 20px;
+            text-align: left;
+            height: 100%;
+            width: 50%;
+            padding: 10px;
         }
 
-        #btn{
+        #btn {
             width: 110px;
-    height: 40px;
-    color: white;
-    background: #332944;
-    border: 1px solid black;
-    border-radius: 3px;
-    font-size: 18px;
-    font-weight: 700;
-    cursor: pointer;
+            height: 40px;
+            color: white;
+            background: #332944;
+            border: 1px solid black;
+            border-radius: 3px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-right: 8px;
         }
 
 
+        #bttn{
+            display: flex;
+    align-items: center;
+    justify-content: space-between;
+        }
 
         @media screen and (max-width:780px) {
 
-            h1{
+            h1 {
 
                 font-size: 165%;
 
@@ -164,57 +174,107 @@
                 height: 107%;
 
             }
-            .CodeMirror{
+
+            .CodeMirror {
                 width: 100%;
             }
 
+            .btn{
+                width: 89px;
+    height: 36px
+            }
+            #btn{
+                width: 89px;
+    height: 36px
+            }
+
         }
-  </style>
- </head>
- <body>
-  <div class="header">
-   <h1></h1>
-   <abbr title="alt+r to run">
-   <button id="btn" accessKey="r">Run code</button>
-    </abbr>
-  </div>
-  <center>
-   <div class="display-flex">
-    <textarea id="editor" name="textarea" placeholder="Type the code here" spellcheck="False"></textarea>
-    <iframe id="result" placeholder="Result will be shown here"></iframe>
-   </div>
-  </center>
- </body>
- <script>
- 
+
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1></h1>
+        <div id="bttn">
+            <abbr title="alt+r to runcode">
+                <button id="btn" accesskey="r">Run code</button>
+            </abbr>
+            <a id="a1" download="untitled.html" accesskey="s">
+                <abbr title="download file alt+s is shortcut ">
+                <i class="fas fa-file-download" style="font-size: 40px; cursor: pointer;"></i>
+            </abbr>
+                </a>
+        </div>
+
+    </div>
+    <center>
+        <div class="display-flex">
+            <textarea id="editor" name="textarea" placeholder="Type the code here" spellcheck="False"></textarea>
+            <iframe id="result" placeholder="Result will be shown here"></iframe>
+        </div>
+    </center>
+</body>
+<script>
+
+
+    // const htmlEditor = CodeMirror(document.querySelector("#editor"),{
+    //     tabSize:4,
+    //     mode:"xml"
+    // })
     var editor = CodeMirror.fromTextArea(document.getElementById("editor"),
-    {
-        tabSize:4,
-        mode:"xml",
-        theme:"monokai",
-        autoCloseTags: true
+        {
+            tabSize: 4,
+            mode: "xml",
+            theme: "monokai",
+            autoCloseTags: true
+        });
+
+
+
+    document.getElementById("btn").addEventListener("click", function () {
+
+        var htmlCodeValue = editor.getValue();
+
+        var ifrm = document.getElementById('result').contentWindow.document;
+        ifrm.open();
+        ifrm.write(htmlCodeValue);
+        ifrm.close();
     });
 
-    
-
-document.getElementById("btn").addEventListener("click", function(){
-    
-    var htmlCodeValue = editor.getValue();
-
-    var ifrm = document.getElementById('result').contentWindow.document;
-    ifrm.open();
-    ifrm.write(htmlCodeValue);
-    ifrm.close();
-});
-
-logo = "Html Code Editor"
-    i =0;
-    function typing(){
+    logo = "Html Code Editor"
+    i = 0;
+    function typing() {
         document.getElementsByTagName("h1")[0].innerHTML += logo.charAt(i);
         i++;
-        setTimeout(typing, 50)
-    }
-typing();
+        setTimeout(typing, 50);
+    };
+    typing();
 
- </script>
+    const buttonPrintOrSaveDocument = document.querySelector(
+  ".btn"
+)
+
+// function printOrSave() {
+//   window.print()
+// }
+
+// buttonPrintOrSaveDocument.addEventListener("click", printOrSave)
+
+var a1 = document.getElementById("a1");
+a1.addEventListener("click", ()=>{
+    if(editor.getValue()){
+        var textarea = editor.getValue();
+        download(textarea);
+    }else{
+        alert("Please run the code at first then try to save the file");
+    }
+})
+
+function download(textarea){
+    const blob = new Blob([textarea], {type:"text/html"})
+    a1.href = URL.createObjectURL(blob)
+}
+</script>
+
 </html>
