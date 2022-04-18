@@ -217,7 +217,9 @@
 </body>
 <script>
 
-
+    window.addEventListener("beforeunload", funciton(){
+                                 return '';
+})
     // const htmlEditor = CodeMirror(document.querySelector("#editor"),{
     //     tabSize:4,
     //     mode:"xml"
